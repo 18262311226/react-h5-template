@@ -1,5 +1,28 @@
-import { useContext } from "react";
+import { useContext, useRef } from "react";
 import { CanvasContext } from "../Context";
+import Canvas from "./canvas";
+
+export function useCanvas (canvas) {
+    const canvasRef = useRef()
+
+    if (!canvasRef.current) {
+        if (canvas) {
+            canvasRef.current = canvas
+        }else {
+            const canvas = new Canvas()
+
+            canvasRef.current = canvas.getPublicCanvas()
+        }
+    }
+
+    return canvasRef.current
+}
+
+export function useCanvasByContext () {
+    const canvas = useContext(CanvasContext)
+
+    return canvas
+}
 
 export function useCanvasData () {
     const canvas = useContext(CanvasContext)

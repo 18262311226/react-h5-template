@@ -67,9 +67,10 @@ const defaultCanvas = {
     ],
   };
 
-class Canvas {
+export default class Canvas {
     constructor (_canvas = defaultCanvas) {
         this.canvas = _canvas
+        this.listeners = []
     }
 
     //获取
@@ -82,6 +83,25 @@ class Canvas {
         return [...this.canvas.cmps]
     }
 
+    addCmp = (_cmp) => {
+        const cmp = {key: getOnlyKey(), ..._cmp}
+        this.canvas.cmps.push(cmp)
+        console.log(this.canvas)
+        this.updateApp()
+    }
+
+    updateApp = () => {
+        this.listeners.forEach(lis => lis())
+    }
+
+    subscribe = (listener) => {
+        this.listeners.push(listener)
+
+        return () => {
+            this.listeners = this.listeners.filter(lis => lis !== listener)
+        }
+    }
+
     //设置
     setCanvas = (_canvas) => {
         Object.assign(this.canvas, _canvas)
@@ -90,7 +110,9 @@ class Canvas {
     getPublicCanvas = () => {
         const obj = {
             getCanvas : this.getCanvas,
-            getCanvasCmps: this.getCanvasCmps
+            getCanvasCmps: this.getCanvasCmps,
+            addCmp: this.addCmp,
+            subscribe: this.subscribe
         }
         
         return obj
