@@ -1,39 +1,39 @@
 import { useRef } from "react";
 import {getOnlyKey} from "../utils";
 
-function getDefaultCanvas() {
-  return {
-    title: "未命名",
-    // 页面样式
-    style: {
-      width: 320,
-      height: 568,
-      backgroundColor: "#ffffff",
-      backgroundImage: "",
-      backgroundPosition: "center",
-      backgroundSize: "cover",
-      backgroundRepeat: "no-repeat",
-      // boxSizing: "content-box",
-    },
-    // 组件
-    cmps: [
-        {
-            key: getOnlyKey(),
-            desc: '文本',
-            value: '文本',
-            style: {
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                width: 100,
-                height: 30,
-                fontSize: 12,
-                color: 'red'
-            }
-        }
-    ],
-  };
-}
+// function getDefaultCanvas() {
+//   return {
+//     title: "未命名",
+//     // 页面样式
+//     style: {
+//       width: 320,
+//       height: 568,
+//       backgroundColor: "#ffffff",
+//       backgroundImage: "",
+//       backgroundPosition: "center",
+//       backgroundSize: "cover",
+//       backgroundRepeat: "no-repeat",
+//       // boxSizing: "content-box",
+//     },
+//     // 组件
+//     cmps: [
+//         {
+//             key: getOnlyKey(),
+//             desc: '文本',
+//             value: '文本',
+//             style: {
+//                 position: 'absolute',
+//                 top: 0,
+//                 left: 0,
+//                 width: 100,
+//                 height: 30,
+//                 fontSize: 12,
+//                 color: 'red'
+//             }
+//         }
+//     ],
+//   };
+// }
 
 const defaultCanvas = {
     title: "未命名",
@@ -50,26 +50,13 @@ const defaultCanvas = {
     },
     // 组件
     cmps: [
-        {
-            key: getOnlyKey(),
-            desc: '文本',
-            value: '文本',
-            style: {
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                width: 100,
-                height: 30,
-                fontSize: 12,
-                color: 'red'
-            }
-        }
     ],
   };
 
 export default class Canvas {
     constructor (_canvas = defaultCanvas) {
         this.canvas = _canvas
+        this.selectedCmpIndex = null
         this.listeners = []
     }
 
@@ -82,16 +69,48 @@ export default class Canvas {
     getCanvasCmps = () => {
         return [...this.canvas.cmps]
     }
+    //获取组件下标
+    getSelectedCmpIndex = () => {
+        return this.selectedCmpIndex
+    }
+    //获取当前下标组件
+    getSelectedCmp = () => {
+        const cmps = this.getCanvasCmps()
 
+        return cmps[this.selectedCmpIndex]
+    }
+    //设置组件下标
+    setSelectedCmpIndex = (index) => {
+        if (this.selectedCmpIndex === index) {
+            return
+        }
+
+        this.selectedCmpIndex = index
+    }
+    // 新增组件
     addCmp = (_cmp) => {
         const cmp = {key: getOnlyKey(), ..._cmp}
+
         this.canvas.cmps.push(cmp)
-        console.log(this.canvas)
+
+        this.setSelectedCmpIndex(this.canvas.cmps.length - 1)
+
         this.updateApp()
     }
 
     updateApp = () => {
         this.listeners.forEach(lis => lis())
+    }
+
+    updateSelectedCmp = (newStyle = {}, newValue) => {
+        const selectedCmp = this.getSelectedCmp()
+
+        Object.assign(this.canvas.cmps[this.getSelectedCmpIndex()], {
+            style: {...selectedCmp.style, ...newStyle},
+            // value: newValue
+        })
+
+        this.updateApp()
     }
 
     subscribe = (listener) => {
@@ -112,6 +131,10 @@ export default class Canvas {
             getCanvas : this.getCanvas,
             getCanvasCmps: this.getCanvasCmps,
             addCmp: this.addCmp,
+            getSelectedCmp: this.getSelectedCmp,
+            getSelectedCmpIndex: this.getSelectedCmpIndex,
+            setSelectedCmpIndex: this.setSelectedCmpIndex,
+            updateSelectedCmp: this.updateSelectedCmp,
             subscribe: this.subscribe
         }
         
