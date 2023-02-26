@@ -1,0 +1,41 @@
+.main {
+    z-index: 999;
+    // position: absolute;
+    top: 0;
+    left: 80px;
+    // width: 294px;
+    height: 100%;
+    padding: 10px 14px 60px;
+    overflow: scroll;
+    box-shadow: #ccc 1px 1px 10px;
+    background-color: white;
+  
+    .box {
+      width: 254px;
+      .item {
+        display: inline-block;
+        width: 120px;
+        height: 120px;
+        line-height: 120px;
+        overflow: hidden;
+        margin: 10px 0;
+        border: solid 1px #ddd;
+        text-align: center;
+        &:nth-of-type(odd) {
+          margin-right: 14px;
+        }
+        &:hover {
+          font-weight: bold;
+          color: orange;
+          border-color: orange;
+        }
+  
+        .desc {
+          line-height: 20px;
+          font-size: 12px;
+          color: #666;
+        }
+      }
+    }
+  }
+  

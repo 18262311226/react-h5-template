@@ -1,3 +1,3 @@
 import { createContext } from "react";
 
-export const CanvasContext = createContext()
+export const CanvasContext = createContext();

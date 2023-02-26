@@ -86,6 +86,8 @@ export default class Canvas {
         }
 
         this.selectedCmpIndex = index
+
+        this.updateApp()
     }
     // 新增组件
     addCmp = (_cmp) => {
@@ -113,6 +115,15 @@ export default class Canvas {
         this.updateApp()
     }
 
+    updateCanvasStyle = (newStyle) => {
+        this.canvas.style = {
+            ...this.canvas.style,
+            ...newStyle
+        }
+
+        this.updateApp()
+    }
+
     subscribe = (listener) => {
         this.listeners.push(listener)
 
@@ -135,6 +146,7 @@ export default class Canvas {
             getSelectedCmpIndex: this.getSelectedCmpIndex,
             setSelectedCmpIndex: this.setSelectedCmpIndex,
             updateSelectedCmp: this.updateSelectedCmp,
+            updateCanvasStyle: this.updateCanvasStyle,
             subscribe: this.subscribe
         }
         

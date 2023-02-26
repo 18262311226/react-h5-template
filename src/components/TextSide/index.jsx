@@ -31,15 +31,16 @@ const defaultStyle = {
     },
   ];
 
-export default function DetailsList (props) {
+export default function TextSide (props) {
     const canvas = useCanvasByContext()
+    const isTextComponent = 1
     const addCmp = (_cmp) => {
         canvas.addCmp(_cmp)
     }
     return <div className={styles.main}>
         <ul className={styles.box}>
             {settings.map((item) => (
-                <li className={styles.item} onClick={() => {addCmp({...item})}} key={item.value}>
+                <li className={styles.item} onClick={() => {addCmp({...item, type: isTextComponent})}} key={item.value}>
                     {item.value}
                 </li>
             ))}
