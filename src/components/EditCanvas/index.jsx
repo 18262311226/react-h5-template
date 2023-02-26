@@ -1,6 +1,7 @@
 import { useCanvasByContext } from '../../store/hook'
-import InputColor from 'react-input-color'
+import InputColor from '../../lib/InputColor/index'
 import styles from './index.less'
+import Item from '../../lib/Item'
 
 export default function EditCanvas (props) {
     const canvas = useCanvasByContext()
@@ -34,8 +35,8 @@ export default function EditCanvas (props) {
             <Item label="背景颜色">
                 <InputColor
                     className={styles.itemRight}
-                    initialValue={style.backgroundColor}
-                    onChange={(e) => handelStyleChange(e, {name: 'backgroundColor', value: e.hex})}
+                    color={style.backgroundColor}
+                    onChangeComplete={(e) => handelStyleChange(e, {name: 'backgroundColor', value: e.hex})}
                 />
             </Item>
 
@@ -47,15 +48,6 @@ export default function EditCanvas (props) {
                     onChange={(e) => handelStyleChange(e, {name: 'backgroundImage', value: e.target.value})}
                 />
             </Item>
-        </div>
-    )
-}
-
-function Item ({label, children}) {
-    return (
-        <div className={styles.item}>
-            <label>{label}</label>
-            {children}
         </div>
     )
 }

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import styles from './index.less'
 import TextSide from '../../components/TextSide'
 import ImgSide from '../../components/ImgSide'
@@ -16,6 +16,12 @@ export default function Left (props) {
         }
         setShowSide(which)
     }
+
+    useEffect(() => {
+        document.getElementById("center").addEventListener('click', () => {
+            setShowSide(0)
+        })
+    }, [])
     return <div className={styles.main}>
         <ul className={styles.cmps}>
             <li className={classNames(styles.cmp, showSide === isTextComponent ? styles.selected : "")} onClick={() => _setShowSide(isTextComponent)}>
