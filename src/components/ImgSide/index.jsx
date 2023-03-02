@@ -1,5 +1,6 @@
 import styles from './index.less'
 import { useCanvasByContext } from '../../store/hook';
+import { defaultCommonStyle } from '../../utils/const';
 
 const defaultStyle = {
   position: "absolute",
@@ -11,6 +12,7 @@ const defaultStyle = {
   borderStyle: "none",
   borderWidth: "0",
   borderColor: "#ffffff00",
+  ...defaultCommonStyle
 };
   
 const settings = [
