@@ -98,6 +98,22 @@ export default function EditCmp (props) {
                 </Item>
             )}
 
+            {style.transform !== undefined && (
+                <Item label="旋转: ">
+                <input
+                    className={styles.itemRight}
+                    type="number"
+                    value={style.transform}
+                    onChange={(e) =>
+                        handelStyleChange(e, {
+                            name: "transform",
+                            value: e.target.value,
+                        })
+                    }
+                />
+                </Item>
+            )}
+
             <Item label="边框样式: ">
                 <select
                 className={styles.itemRight}
