@@ -65,6 +65,11 @@ export default class Canvas {
         return {...this.canvas}
     }
 
+    setCanvas = (_canvas) => {
+        Object.assign(this.canvas, _canvas);
+        this.updateApp();
+    };
+
     //获取组件
     getCanvasCmps = () => {
         return [...this.canvas.cmps]
@@ -135,11 +140,6 @@ export default class Canvas {
         }
     }
 
-    //设置
-    setCanvas = (_canvas) => {
-        Object.assign(this.canvas, _canvas)
-    }
-
     getPublicCanvas = () => {
         const obj = {
             getCanvas : this.getCanvas,
@@ -150,7 +150,8 @@ export default class Canvas {
             setSelectedCmpIndex: this.setSelectedCmpIndex,
             updateSelectedCmp: this.updateSelectedCmp,
             updateCanvasStyle: this.updateCanvasStyle,
-            subscribe: this.subscribe
+            subscribe: this.subscribe,
+            setCanvas: this.setCanvas
         }
         
         return obj

@@ -1,6 +1,6 @@
-import styles from './index.less'
-import { defaultCommonStyle } from '../../utils/const';
-import { useCanvasByContext } from '../../store/hook';
+import leftsidestyles from './index.less'
+import { defaultCommonStyle } from '../../../utils/const';
+import { useCanvasByContext } from '../../../store/hook';
 
 const defaultStyle = {
     ...defaultCommonStyle,
@@ -37,10 +37,10 @@ export default function TextSide (props) {
     const addCmp = (_cmp) => {
         canvas.addCmp(_cmp)
     }
-    return <div className={styles.main}>
-        <ul className={styles.box}>
+    return <div className={leftsidestyles.main}>
+        <ul className={leftsidestyles.box}>
             {settings.map((item) => (
-                <li className={styles.item} onClick={() => {addCmp({...item, type: isTextComponent})}} key={item.value}>
+                <li className={leftsidestyles.item} onClick={() => {addCmp({...item, type: isTextComponent})}} key={item.value}>
                     {item.value}
                 </li>
             ))}
