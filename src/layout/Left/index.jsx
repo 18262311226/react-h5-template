@@ -3,6 +3,7 @@ import styles from './index.less'
 import TextSide from '@/components/LeftSide/TextSide'
 import ImgSide from '@/components//LeftSide/ImgSide'
 import TplSide from '@/components//LeftSide/TplSide'
+import GraphSide from '@/components//LeftSide/GraphSide'
 import classNames from 'classnames'
 
 export default function Left (props) {
@@ -11,6 +12,7 @@ export default function Left (props) {
     const isTextComponent = 1
     const isImgComponent = 2
     const isTplComponent = 3
+    const isGraphComponent = 4
     const _setShowSide = (which) => {
         if(showSide === which){
             setShowSide(0)
@@ -35,10 +37,14 @@ export default function Left (props) {
             <li className={classNames(styles.cmp, showSide === isImgComponent ? styles.selected : "")} onClick={() => _setShowSide(isImgComponent)}>
                 <span>图片</span>
             </li>
+            <li className={classNames(styles.cmp, showSide === isGraphComponent ? styles.selected : "")} onClick={() => _setShowSide(isGraphComponent)}>
+                <span>图形</span>
+            </li>
         </ul>
 
         {showSide === isTextComponent && <TextSide/>}
         {showSide === isImgComponent && <ImgSide/>}
         {showSide === isTplComponent && <TplSide/>}
+        {showSide === isGraphComponent && <GraphSide/>}
     </div>
 }
